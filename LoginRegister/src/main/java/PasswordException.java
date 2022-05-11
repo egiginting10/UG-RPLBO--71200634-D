@@ -1,43 +1,28 @@
-class PasswordException extends Exception {
+public class PasswordException extends Exception{
+    private int errCode;
+    private String errMessage;
 
-    int passwordConditionViolated = 0;
-
-    public PasswordException(int conditionViolated)
-    {
-        super("Invalid Password: ");
-        passwordConditionViolated = conditionViolated;
+    public PasswordException(int errCode) {
+        super();
+        this.errCode = errCode;
+        if (this.errCode==1){
+            errMessage="password tidak boleh kosong";
+        }else if(this.errCode==2){
+            errMessage="password minimal 7 karakter";
+        }else if(this.errCode==3){
+            errMessage="password harus mengandung huruf kecil, huruf besar, angka, dan simbol";
+        }else if(this.errCode==4){
+            errMessage="password tidak boleh sama dengan username";
+        }else if(this.errCode==5){
+            errMessage="konfirmasi password tidak sama";
+        }
     }
 
-    public String printMessage()
-    {
-        switch (passwordConditionViolated) {
+    public String getErrMessage() {
+        return errMessage;
+    }
 
-            case 1:
-                return ("Password length should be"
-                        + " between 8 to 15 characters");
-
-            case 2:
-                return ("Password should not"
-                        + " contain any space");
-
-
-            case 3:
-                return ("Password should contain"
-                        + " at least one digit(0-9)");
-
-            case 4:
-                return ("Password should contain at "
-                        + "least one special character");
-
-            case 5:
-                return ("Password should contain at"
-                        + " least one uppercase letter(A-Z)");
-
-            case 6:
-                return ("Password should contain at"
-                        + " least one lowercase letter(a-z)");
-        }
-
-        return ("");
+    public int getErrCode() {
+        return errCode;
     }
 }
